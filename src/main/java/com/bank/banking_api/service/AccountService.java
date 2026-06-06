@@ -24,4 +24,32 @@ public class AccountService {
         return accountRepository.save(account);
     }
 
+    public Account deposit(Long accountId, BigDecimal amount){
+        Account account = accountRepository.findById(accountId).orElseThrow(() -> new RuntimeException("Account not found"));
+        account.setBalance(account.getBalance().add(amount));
+        return accountRepository.save(account);
+    }
+
+    public Account withdraw(Long accountId, BigDecimal amount){
+        Account account = accountRepository.findById(accountId).orElseThrow(() -> new RuntimeException("Account not found"));
+        if (account.getBalance().compareTo(amount) < 0){
+            throw new RuntimeException("Insufficient funds");
+        }
+        account.setBalance(account.getBalance().subtract(amount));
+        return accountRepository.save(account);
+    }
+
+    public void transfer(Long fromAccountId, Long toAccountId, BigDecimal amount){
+        Account fromAccount = accountRepository.findById(fromAccountId).orElseThrow(() -> new RuntimeException("Account not found"));
+        Account toAccount = accountRepository.findById(toAccountId).orElseThrow(() -> new RuntimeException("Account not found"));
+        if (fromAccount.getBalance().compareTo(amount) < 0){
+            throw new RuntimeException("Insufficient funds");
+        }
+        fromAccount.setBalance(fromAccount.getBalance().subtract(amount));
+        toAccount.setBalance(toAccount.getBalance().add(amount));
+        accountRepository.save(fromAccount);
+        accountRepository.save(toAccount);
+    }
+
+
 }
