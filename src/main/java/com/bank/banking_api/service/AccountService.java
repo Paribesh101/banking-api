@@ -51,5 +51,10 @@ public class AccountService {
         accountRepository.save(toAccount);
     }
 
+    public Account getAccount(Long id) {
+        return accountRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Account not found"));
+    }
+
 
 }

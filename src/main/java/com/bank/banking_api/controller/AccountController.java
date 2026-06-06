@@ -3,6 +3,7 @@ package com.bank.banking_api.controller;
 import java.math.BigDecimal;
 import java.util.Map;
 
+import org.apache.catalina.connector.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,8 +16,10 @@ import com.bank.banking_api.model.Account;
 import com.bank.banking_api.repository.UserRepository;
 import com.bank.banking_api.service.AccountService;
 import com.bank.banking_api.model.User;
+import com.bank.banking_api.repository.AccountRepository;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.GetMapping;
 
 @RestController
 @RequestMapping("/api/accounts")
@@ -60,4 +63,9 @@ public class AccountController {
         return ResponseEntity.ok().build();
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Account> getAccount(@PathVariable Long id) {
+        Account account = accountService.getAccount(id);
+        return ResponseEntity.ok(account);
+    }
 }
