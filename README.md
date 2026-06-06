@@ -1,6 +1,8 @@
 # Banking API
 
-A RESTful banking API built with Java 17 and Spring Boot, featuring JWT authentication, account management, and financial transaction processing.
+A Spring Boot banking application that allows users to deposit, withdraw, and transfer funds between accounts. It stores user and account data in a MySQL database.
+
+I built this project to gain hands-on practical experience with Spring Boot, Hibernate, and JPA. The most challenging part was implementing the account and transaction logic — making sure balances updated correctly and transfers between accounts were handled safely.
 
 ## Tech Stack
 
@@ -18,7 +20,7 @@ A RESTful banking API built with Java 17 and Spring Boot, featuring JWT authenti
 - Create bank accounts
 - Deposit and withdraw funds
 - Transfer funds between accounts
-- Input validation and error handling
+- Insufficient funds protection
 
 ## API Endpoints
 
@@ -64,50 +66,3 @@ CREATE DATABASE banking_db;
 ```
 
 5. Access Swagger documentation at `http://localhost:8080/swagger-ui.html`
-
-## Example Requests
-
-**Register a user**
-```json
-POST /api/auth/register
-{
-  "name": "John Doe",
-  "email": "john@example.com",
-  "password": "secret123"
-}
-```
-
-**Login**
-```json
-POST /api/auth/login
-{
-  "email": "john@example.com",
-  "password": "secret123"
-}
-```
-
-**Create an account**
-```json
-POST /api/accounts
-{
-  "userId": 1
-}
-```
-
-**Deposit funds**
-```json
-POST /api/accounts/1/deposit
-{
-  "amount": 500
-}
-```
-
-**Transfer funds**
-```json
-POST /api/accounts/transfer
-{
-  "fromAccountId": 1,
-  "toAccountId": 2,
-  "amount": 100
-}
-```
